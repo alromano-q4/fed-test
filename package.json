@@ -12,7 +12,10 @@
   },
   "scripts": {
     "start": "http-server ./src",
-    "test": "mocha ./test/review.test.js"
+    "test": "test-html test-css test-js",
+    "test-html": "mocha ./test/html.test.js",
+    "test-css": "mocha ./test/css.test.js",
+    "test-js": "mocha ./test/javascript.test.js"
   },
   "dependencies": {}
 }
