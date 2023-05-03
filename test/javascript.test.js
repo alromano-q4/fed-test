@@ -1,27 +1,27 @@
-// Import the necessary libraries
 const chai = require('chai');
-const { JSDOM } = require('jsdom');
-const chaiDom = require('chai-dom');
+const expect = chai.expect;
+const reportsWidget = require('../src/js/main');
+const hbsLint = require('handlebars-lint');
 
-// Set up Chai with chai-dom
-chai.use(chaiDom);
-const { expect } = chai;
+describe('reportsWidget', () => {
+    it('should compile successfully', function () {
+        const reportData = [
+            {
+                cover: 'http://example.com/cover1.jpg',
+                title: 'Report 1',
+                documents: [
+                    {
+                        url: 'http://example.com/doc1.pdf',
+                        title: 'Document 1',
+                        file_size: '1MB',
+                        file_type: 'PDF'
+                    }
+                ]
+            }
+        ];
 
-// Define your test
-describe('Check for ID "q4Wrapper" on HTML Body element', () => {
-    it('should find a body element with the ID "q4Wrapper"', (done) => {
-        // Load the HTML file into JSDOM
-        JSDOM.fromFile('src/index.html').then((dom) => {
-            const { document } = dom.window;
-
-            // Perform the test
-            const bodyElement = document.querySelector('body');
-            expect(bodyElement).to.have.id('q4Wrapper');
-
-            // Complete the test
-            done();
-        }).catch((error) => {
-            done(error);
-        });
+        const template = Handlebars.compile(reportsWidget.options.template);
+        const renderedTemplate = template(mockReportData);
+        expect(renderedTemplate).to.not.be.empty;
     });
 });

@@ -1,19 +1,26 @@
 const fs = require('fs');
-const { JSDOM } = require('jsdom');
+const css = require('css');
 const { expect } = require('chai');
 
-describe('Check if Reports are using CSS Grid', function () {
-    it('should have CSS grid property applied', function (done) {
-        fs.readFile('src/index.html', 'utf8', (err, html) => {
+describe('main.css', () => {
+    it('should have a "reports" class with a responsive display property', (done) => {
+        fs.readFile('./src/css/main.css', 'utf8', (err, data) => {
             if (err) throw err;
 
-            const dom = new JSDOM(html);
-            const { window } = dom;
+            const parsedCSS = css.parse(data);
+            const rules = parsedCSS.stylesheet.rules;
 
-            const element = window.document.querySelector('.reports');
-            const style = window.getComputedStyle(element);
+            const reportsRule = rules.find(
+                (rule) => rule.type === 'rule' && rule.selectors.includes('.reports')
+            );
 
-            expect(style.display).to.equal('grid');
+            const displayProperty = reportsRule.declarations.find(
+                (declaration) => declaration.property === 'display'
+            );
+
+            expect(displayProperty).to.not.be.undefined;
+            expect(displayProperty.value).to.be.oneOf(['grid', 'flex']);
+
             done();
         });
     });

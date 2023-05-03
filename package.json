@@ -4,9 +4,11 @@
   "description": "A professional front-end template for building fast, robust, and adaptable web apps or sites.",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "^0.12.1",
     "chai": "^4.3.7",
     "chai-dom": "^1.11.0",
+    "css": "^3.0.0",
+    "handlebars-lint": "^1.0.0",
+    "http-server": "^0.12.1",
     "jsdom": "^22.0.0",
     "mocha": "^10.2.0"
   },
@@ -16,6 +18,5 @@
     "test-html": "mocha ./test/html.test.js",
     "test-css": "mocha ./test/css.test.js",
     "test-js": "mocha ./test/javascript.test.js"
-  },
-  "dependencies": {}
+  }
 }
